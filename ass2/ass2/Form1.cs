@@ -47,6 +47,17 @@ namespace ass2
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            string searchName = textBoxSearch.Text;
+
+            textBoxSearch.Clear();
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (CustomerDB.Any)
+            }
+
+
+
 
         }
 
