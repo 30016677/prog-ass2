@@ -38,39 +38,46 @@ namespace ass2
             foreach (Customer x in CustomerDB)
             {
                 ListBoxDB.Items.Add(x.GetCustomer());
-            }
-
-            //ListBoxDB.Items.Add(CustomerDB.ForEach());
-
-            //ListBoxDB.Items.Add()
+            }            
         }
 
+        //Search button click event
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string searchName = textBoxSearch.Text;
-
             textBoxSearch.Clear();
 
-            for (int i = 0; i < 3; i++)
+            foreach (Customer x in CustomerDB)
             {
-                if (CustomerDB.Any)
+                if (x.FName == searchName)
+                {
+                    ListBoxDB.Items.Add(x.GetCustomer());
+                }
+                else if (x.LName == searchName)
+                {
+                    ListBoxDB.Items.Add(x.GetCustomer());
+                }
+                else if (x.Phone == searchName)
+                {
+                    ListBoxDB.Items.Add(x.GetCustomer());
+                }
             }
-
-
-
+                   
+            
 
         }
-
+        //List customers click event
         private void btnListCustomers_Click(object sender, EventArgs e)
         {
             ClearDisplay();
             DisplayCustomers();
         }
-
+        //Clear list click event
         private void btnClearList_Click(object sender, EventArgs e)
         {
             ClearDisplay();
             btnSearch.Focus();
         }
+
     }
 }
