@@ -19,7 +19,7 @@ namespace ass2
         }
 
         List<Customer> CustomerDB = new List<Customer>();
-        int indexDB;
+        int indexDB = -1; //index of list item
 
         //Add customers to the Customer DB
         public void LoadDB()
@@ -29,14 +29,14 @@ namespace ass2
             CustomerDB.Add(new Customer("Aimee", "Ellery", "346-3658"));
             CustomerDB.Add(new Customer("Sam", "Herewini", "346-9898"));
         }
-        //Clear the input textboxes
+        //Clear the textboxes
         public void ClearBoxes()
         {
             textBoxFirstName.Clear();
             textBoxLastName.Clear();
             textBoxPhone.Clear();
         }
-        //clear the output list box
+        //clear the listbox
         public void ClearDisplay()
         {
             ListBoxDB.Items.Clear();
@@ -49,40 +49,47 @@ namespace ass2
                 ListBoxDB.Items.Add(x.GetCustomer());
             }            
         }
-
         //Search button click event
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string searchName = textBoxSearch.Text;
-            textBoxSearch.Clear();
-            bool found = false;
-
-            foreach (Customer x in CustomerDB)
+            if (textBoxSearch.Text == "")
             {
-                if (x.FName == searchName)
-                {
-                    ListBoxDB.Items.Add(x.GetCustomer());
-                    found = true;
-                }
-                else if (x.LName == searchName)
-                {
-                    ListBoxDB.Items.Add(x.GetCustomer());
-                    found = true;
-                }
-                else if (x.Phone == searchName)
-                {
-                    ListBoxDB.Items.Add(x.GetCustomer());
-                    found = true;
-                }    
-            }
-            if (found == false)
-            {
-                MessageBox.Show("Customer not found, please try again", "Sorry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You must enter a customer name.");
                 textBoxSearch.Focus();
             }
-                   
-            
+            else
+            {
+                string searchName = textBoxSearch.Text;
+                textBoxSearch.Clear();
+                bool found = false;
+                ClearDisplay();
 
+                foreach (Customer x in CustomerDB)
+                {
+                    if (x.FName == searchName)
+                    {
+                        ListBoxDB.Items.Add(x.GetCustomer());
+                        found = true;
+                    }
+                    else if (x.LName == searchName)
+                    {
+                        ListBoxDB.Items.Add(x.GetCustomer());
+                        found = true;
+                    }
+                    else if (x.Phone == searchName)
+                    {
+                        ListBoxDB.Items.Add(x.GetCustomer());
+                        found = true;
+                    }
+                }
+
+                if (found == false)
+                {
+                    MessageBox.Show("Customer not found, please try again");
+                    textBoxSearch.Focus();
+
+                }
+            }                
         }
         //List customers click event
         private void btnListCustomers_Click(object sender, EventArgs e)
@@ -94,7 +101,7 @@ namespace ass2
         private void btnClearList_Click(object sender, EventArgs e)
         {
             ClearDisplay();
-            btnSearch.Focus();
+            textBoxSearch.Focus();
             btnAdd.Enabled = true;
         }
         //Clear text boxes click event
@@ -102,9 +109,6 @@ namespace ass2
         {
             ClearBoxes();
         }
-
-
-
         //List Box item selected
         private void ListBoxDB_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -118,15 +122,14 @@ namespace ass2
             textBoxFirstName.Text = splitListItems[0];
             textBoxLastName.Text = splitListItems[1];
             textBoxPhone.Text = splitListItems[2];
-
-            indexDB = ListBoxDB.SelectedIndex;
-
-
+            
+            //update list item index
+            //indexDB = ListBoxDB.SelectedIndex;
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            if (indexDB != -1)
+            if (indexDB != -1) //if customer is selected
             {
                 if (textBoxFirstName.Text == "" || textBoxLastName.Text == "" || textBoxPhone.Text == "")
                 {
@@ -134,23 +137,21 @@ namespace ass2
                 }
                 else
                 {
-                    CustomerDB.RemoveAt(indexDB);
+                    CustomerDB.RemoveAt(ListBoxDB.SelectedIndex); //delete customer at index
                     CustomerDB.Add(new Customer(textBoxFirstName.Text, textBoxLastName.Text, textBoxPhone.Text));                    
                     ClearDisplay();
                     DisplayCustomers();
                     MessageBox.Show("Customer details updated");
+                    ClearBoxes();
                     btnAdd.Enabled = true;
                 }
-
-
             }
             else
             {
                 MessageBox.Show("Please select a customer to update.");
-            }
-            
+            }            
         }
-
+        //Add button click event
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             if (textBoxFirstName.Text == "" || textBoxLastName.Text == "" || textBoxPhone.Text == "")
@@ -164,7 +165,36 @@ namespace ass2
                 ClearDisplay();
                 DisplayCustomers();
                 MessageBox.Show("New customer has been added");
-                btnAdd.Enabled = true;
+                ClearBoxes();
+            }
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            if (indexDB != -1)
+            {
+                DialogResult yesno = MessageBox.Show("Are you sure you want to delete this customer?", "Warning", MessageBoxButtons.YesNo);
+                if (yesno == DialogResult.Yes)
+                {
+                    CustomerDB.RemoveAt(indexDB);
+                    ClearBoxes();
+                    ClearDisplay();
+                    DisplayCustomers();
+                    MessageBox.Show("The customer has been deleted.");
+                    btnAdd.Enabled = true;
+                    indexDB = -1;
+                }
+                else
+                {
+                    MessageBox.Show("Operation cancelled");
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show("Please select a customer to delete.");
+                
             }
         }
     }
