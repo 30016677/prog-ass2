@@ -39,12 +39,12 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxFirstName = new System.Windows.Forms.TextBox();
-            this.textBoxLastName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.textBoxPhone = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBoxLastName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxFirstName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +67,7 @@
             this.ListBoxDB.Name = "ListBoxDB";
             this.ListBoxDB.Size = new System.Drawing.Size(381, 364);
             this.ListBoxDB.TabIndex = 1;
+            this.ListBoxDB.SelectedIndexChanged += new System.EventHandler(this.ListBoxDB_SelectedIndexChanged);
             // 
             // btnSearch
             // 
@@ -113,6 +114,7 @@
             this.btnClear.TabIndex = 6;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // btnDelete
             // 
@@ -131,6 +133,7 @@
             this.btnUpdate.TabIndex = 8;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
             // btnAdd
             // 
@@ -140,6 +143,7 @@
             this.btnAdd.TabIndex = 9;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // groupBox1
             // 
@@ -156,21 +160,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "CustomerDetails";
             // 
-            // label1
+            // textBoxPhone
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "FirstName";
+            this.textBoxPhone.Location = new System.Drawing.Point(98, 130);
+            this.textBoxPhone.Name = "textBoxPhone";
+            this.textBoxPhone.Size = new System.Drawing.Size(182, 20);
+            this.textBoxPhone.TabIndex = 5;
             // 
-            // textBoxFirstName
+            // label3
             // 
-            this.textBoxFirstName.Location = new System.Drawing.Point(98, 44);
-            this.textBoxFirstName.Name = "textBoxFirstName";
-            this.textBoxFirstName.Size = new System.Drawing.Size(182, 20);
-            this.textBoxFirstName.TabIndex = 1;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 138);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Phone";
             // 
             // textBoxLastName
             // 
@@ -188,21 +192,21 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "LastName";
             // 
-            // textBoxPhone
+            // textBoxFirstName
             // 
-            this.textBoxPhone.Location = new System.Drawing.Point(98, 130);
-            this.textBoxPhone.Name = "textBoxPhone";
-            this.textBoxPhone.Size = new System.Drawing.Size(182, 20);
-            this.textBoxPhone.TabIndex = 5;
+            this.textBoxFirstName.Location = new System.Drawing.Point(98, 44);
+            this.textBoxFirstName.Name = "textBoxFirstName";
+            this.textBoxFirstName.Size = new System.Drawing.Size(182, 20);
+            this.textBoxFirstName.TabIndex = 1;
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 138);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Phone";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "FirstName";
             // 
             // Form1
             // 

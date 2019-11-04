@@ -8,6 +8,7 @@ namespace ass2
 {
     class Customer
     {
+        //Kris Boyte 30016677
         public string FName { get; set; }
         public string LName { get; set; }
         public string Phone { get; set; }
