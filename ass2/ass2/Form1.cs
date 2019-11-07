@@ -12,14 +12,14 @@ namespace ass2
 {
     public partial class Form1 : Form
     {
+        //Kris Boyte 30016677
         public Form1()
         {
             InitializeComponent();
             LoadDB();
         }
 
-        List<Customer> CustomerDB = new List<Customer>();
-        int indexDB = -1; //index of list item
+        List<Customer> CustomerDB = new List<Customer>();        
 
         //Add customers to the Customer DB
         public void LoadDB()
@@ -66,23 +66,12 @@ namespace ass2
 
                 foreach (Customer x in CustomerDB)
                 {
-                    if (x.FName == searchName)
-                    {
-                        ListBoxDB.Items.Add(x.GetCustomer());
-                        found = true;
-                    }
-                    else if (x.LName == searchName)
-                    {
-                        ListBoxDB.Items.Add(x.GetCustomer());
-                        found = true;
-                    }
-                    else if (x.Phone == searchName)
+                    if (x.FName == searchName || x.LName == searchName || x.Phone == searchName)
                     {
                         ListBoxDB.Items.Add(x.GetCustomer());
                         found = true;
                     }
                 }
-
                 if (found == false)
                 {
                     MessageBox.Show("Customer not found, please try again");
@@ -122,14 +111,14 @@ namespace ass2
             textBoxFirstName.Text = splitListItems[0];
             textBoxLastName.Text = splitListItems[1];
             textBoxPhone.Text = splitListItems[2];
-            
-            //update list item index
-            //indexDB = ListBoxDB.SelectedIndex;
+
+            //Assign index to integer variable because the marking schedule says so?
+            int DBIndex = ListBoxDB.SelectedIndex;
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            if (indexDB != -1) //if customer is selected
+            if (ListBoxDB.SelectedIndex >= 0) //if customer is selected
             {
                 if (textBoxFirstName.Text == "" || textBoxLastName.Text == "" || textBoxPhone.Text == "")
                 {
@@ -137,8 +126,8 @@ namespace ass2
                 }
                 else
                 {
-                    CustomerDB.RemoveAt(ListBoxDB.SelectedIndex); //delete customer at index
-                    CustomerDB.Add(new Customer(textBoxFirstName.Text, textBoxLastName.Text, textBoxPhone.Text));                    
+                    CustomerDB.RemoveAt(ListBoxDB.SelectedIndex); //delete selected customer
+                    CustomerDB.Add(new Customer(textBoxFirstName.Text, textBoxLastName.Text, textBoxPhone.Text));  //add updated customer                   
                     ClearDisplay();
                     DisplayCustomers();
                     MessageBox.Show("Customer details updated");
@@ -159,8 +148,7 @@ namespace ass2
                 MessageBox.Show("All textboxes must be filled to continue");
             }
             else
-            {
-                
+            {                
                 CustomerDB.Add(new Customer(textBoxFirstName.Text, textBoxLastName.Text, textBoxPhone.Text));
                 ClearDisplay();
                 DisplayCustomers();
@@ -171,18 +159,18 @@ namespace ass2
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            if (indexDB != -1)
+            if (ListBoxDB.SelectedIndex >= 0)
             {
                 DialogResult yesno = MessageBox.Show("Are you sure you want to delete this customer?", "Warning", MessageBoxButtons.YesNo);
                 if (yesno == DialogResult.Yes)
                 {
-                    CustomerDB.RemoveAt(indexDB);
+                    CustomerDB.RemoveAt(ListBoxDB.SelectedIndex);
                     ClearBoxes();
                     ClearDisplay();
                     DisplayCustomers();
                     MessageBox.Show("The customer has been deleted.");
                     btnAdd.Enabled = true;
-                    indexDB = -1;
+                    ListBoxDB.SelectedIndex = -1;
                 }
                 else
                 {
